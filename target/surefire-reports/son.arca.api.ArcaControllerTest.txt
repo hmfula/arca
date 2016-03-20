@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: son.arca.api.ArcaControllerTest
+-------------------------------------------------------------------------------
+Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.579 sec - in son.arca.api.ArcaControllerTest

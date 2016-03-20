@@ -1,0 +1,9 @@
+Manifest-Version: 1.0
+Implementation-Title: arca
+Implementation-Version: 1.0-SNAPSHOT
+Built-By: harry
+Implementation-Vendor-Id: son
+Created-By: IntelliJ IDEA
+Build-Jdk: 1.8.0_74
+Main-Class: ${start-class}
+
