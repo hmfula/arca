@@ -1,13 +1,13 @@
 package son.arca.controller;
 
-import son.arca.model.Cause;
-import son.arca.api.EmailService;
-import son.arca.api.ArcaService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import son.arca.api.ArcaService;
+import son.arca.api.EmailService;
+import son.arca.model.Cause;
 
 import java.util.Collection;
 import java.util.concurrent.Future;
@@ -29,6 +29,11 @@ public class ArcaController extends BaseController {
 
     @Autowired
     private EmailService emailService;
+
+    @RequestMapping("/")
+    public String index() {
+        return "index";
+    }
 
     /**
      * Web service endpoint to fetch all Cause entities. The service returns

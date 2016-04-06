@@ -1,0 +1,30 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Automatic Root Cause Analysis</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="js/arca.js"></script>
+</head>
+
+<body>
+<!--BEGIN test date function -->
+<button type="button" onclick="myDateFunction()">Show Current Date</button>
+<script>
+    function myDateFunction() {
+        document.getElementById("show-date").innerHTML = Date();
+    }
+</script>
+<p id ='show-date'></p>
+<!--END test date function -->
+
+
+<div>
+    <p class="cause-id">The cause ID is </p>
+    <p class="cause-name">The cause is </p>
+    <p class="cause-frequency">The cause frequency is </p>
+    <p class="cause-total">The cause total is </p>
+    <p class="cause-description">The cause description is </p>
+</div>
+</body>
+</html>

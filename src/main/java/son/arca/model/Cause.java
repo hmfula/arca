@@ -14,7 +14,12 @@ public class Cause {
     @Id
     @GeneratedValue
     private Long id;
-    private  String text;
+    private Long frequency;
+    private String description;
+    private String name;
+    private Double total;
+
+
 
     public Long getFrequency() {
         return frequency;
@@ -23,8 +28,6 @@ public class Cause {
     public void setFrequency(Long frequency) {
         this.frequency = frequency;
     }
-
-    private Long frequency;
 
 
     public Cause(){
@@ -38,11 +41,27 @@ public class Cause {
         this.id = id;
     }
 
-    public String getText() {
-        return text;
+    public String getDescription() {
+        return description;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Double getTotal() {
+        return total;
+    }
+
+    public void setTotal(Double total) {
+        this.total = total;
     }
 }

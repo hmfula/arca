@@ -41,7 +41,7 @@ public class CauseServiceTest extends AbstractTest {
         Collection<Cause> list = service.findAll();
 
         Assert.assertNotNull("failure - expected not null", list);
-        Assert.assertEquals("failure - expected list size", 2, list.size());
+        Assert.assertEquals("failure - expected list size", 15, list.size());
 
     }
 
@@ -73,7 +73,7 @@ public class CauseServiceTest extends AbstractTest {
     public void testCreate() {
 
         Cause entity = new Cause();
-        entity.setText("test");
+        entity.setName("test");
 
         Cause createdEntity = service.create(entity);
 
@@ -81,11 +81,11 @@ public class CauseServiceTest extends AbstractTest {
         Assert.assertNotNull("failure - expected id attribute not null",
                 createdEntity.getId());
         Assert.assertEquals("failure - expected text attribute match", "test",
-                createdEntity.getText());
+                createdEntity.getName());
 
         Collection<Cause> list = service.findAll();
 
-        Assert.assertEquals("failure - expected size", 3, list.size());
+        Assert.assertEquals("failure - expected size", 16, list.size());
 
     }
 
@@ -96,7 +96,7 @@ public class CauseServiceTest extends AbstractTest {
 
         Cause entity = new Cause();
         entity.setId(Long.MAX_VALUE);
-        entity.setText("test");
+        entity.setName("test");
 
         try {
             service.create(entity);
@@ -119,8 +119,8 @@ public class CauseServiceTest extends AbstractTest {
 
         Assert.assertNotNull("failure - expected not null", entity);
 
-        String updatedText = entity.getText() + " test";
-        entity.setText(updatedText);
+        String updatedText = entity.getName() + " test";
+        entity.setName(updatedText);
         Long updatedFrequency = entity.getFrequency() + 100L;
         entity.setFrequency(updatedFrequency);
         Cause updatedEntity = service.update(entity);
@@ -129,7 +129,7 @@ public class CauseServiceTest extends AbstractTest {
         Assert.assertEquals("failure - expected id attribute match", id,
                 updatedEntity.getId());
         Assert.assertEquals("failure - expected text attribute match",
-                updatedText, updatedEntity.getText());
+                updatedText, updatedEntity.getName());
         Assert.assertEquals("failure - expected frequency attribute match",
                 updatedFrequency, updatedEntity.getFrequency());
 
@@ -142,7 +142,7 @@ public class CauseServiceTest extends AbstractTest {
 
         Cause entity = new Cause();
         entity.setId(Long.MAX_VALUE);
-        entity.setText("test");
+        entity.setName("test");
 
         try {
             service.update(entity);
@@ -169,7 +169,7 @@ public class CauseServiceTest extends AbstractTest {
 
         Collection<Cause> list = service.findAll();
 
-        Assert.assertEquals("failure - expected size", 1, list.size());
+        Assert.assertEquals("failure - expected size", 14, list.size());
 
         Cause deletedEntity = service.findOne(id);
 

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<head>
+    <title>Automatic Root Cause Analysis</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="js/pareto.js"></script>
+</head>
+
+<style>
+
+body { font: 10px Arial;}
+
+path { 
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+}
+
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+
+.bar {
+            fill: FireBrick;
+     }
+        
+</style>
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+
+<script>
+
+var margin = {top: 30, right: 40, bottom: 30, left: 50},
+    width = 1600 - margin.left - margin.right,
+    height = 670 - margin.top - margin.bottom;
+
+x = d3.scale.ordinal().rangeRoundBands([0, width], 0.3);
+
+
+
+var y0 = d3.scale.linear().range([height, margin.bottom]);
+var y1 = d3.scale.linear().range([height, margin.bottom]);
+
+var xAxis = d3.svg.axis().scale(x)
+    .orient("bottom").ticks(15);
+
+
+var yAxisLeft = d3.svg.axis().scale(y0)
+    .orient("left").ticks(15);
+
+var yAxisRight = d3.svg.axis().scale(y1)
+    .orient("right").ticks(15); 
+/**
+var valueline = d3.svg.line()
+    .x(function(d) { return x(d.cause); })
+    .y(function(d) { return y0(d.complaints); });
+    
+*/
+
+
+
+
+var valueline2 = d3.svg.line()
+    .x(function(d) { return x(d.name); })
+    .y(function(d) { return y1(d.total); });
+  
+var svg = d3.select("body")
+    .append("svg")
+        .attr("width", width + margin.left + margin.right)
+        .attr("height", height + margin.top + margin.bottom)
+    .append("g")
+        .attr("transform", 
+              "translate(" + margin.left + "," + margin.top + ")");
+
+
+
+
+//$(document).ready(function() {
+data=[]
+    $.ajax({
+        url:"http://localhost:8080/api/causes"
+    }).then(function(datas) {
+        datas.forEach(
+                function(cause){
+                    cause.name= cause.name;
+                    cause.frequency =+ cause.frequency
+                    cause.total =+ cause.total
+
+                    data.push(cause);
+                    console.log("Added cause:" + cause.name+",frequency:"+cause.frequency +",cummulative share:" + cause.total+"%");
+
+                });
+
+        // Scale the range of the data
+        //x.domain(d3.extent(data, function(d) { return d.date; }));
+        x.domain(data.map(function(d) {
+            return d.name;
+        }));
+
+        y0.domain([0, d3.max(data, function(d) {
+            return Math.max(d.frequency); })]);
+        y1.domain([0, d3.max(data, function(d) {
+            return Math.max(d.total); })]);
+        /**
+         svg.append("path")        // Add the valueline path.
+         .attr("d", valueline(data));
+         **/
+
+
+
+        svg.selectAll('rect')
+                .data(data)
+                .enter()
+                .append('rect')
+                .attr('x', function (d) {
+                    return x(d.name);
+                })
+                .attr('y', function (d) {
+                    return y0(d.frequency);
+                })
+                .attr('width', x.rangeBand())
+                .attr('height', function (d) {
+                    return (height  - y0(d.frequency));
+                })
+                .attr('fill', 'steelblue');
+
+        svg.append("path")        // Add the valueline2 path.
+                .style("stroke", "red")
+                .attr("d", valueline2(data));
+
+        svg.append("g")            // Add the X Axis
+                .attr("class", "x axis")
+                .attr("transform", "translate(0," + height + ")")
+                .call(xAxis);
+//        svg.selectAll('. x axis')
+//        .attr("transform", function(d) {
+//            return "rotate(-45)";
+//        });
+
+        svg.append("g")
+                .attr("class", "y axis")
+                .style("fill", "steelblue")
+                .call(yAxisLeft)
+
+
+        svg.append("g")
+                .attr("class", "y axis")
+                .attr("transform", "translate(" + width + " ,0)")
+                .style("fill", "red")
+                .call(yAxisRight);
+//title
+        svg.append("text")
+                .attr("x", (width + (margin.left + margin.right) )/ 2)
+                .attr("y", 0 + margin.top)
+                .attr("text-anchor", "middle")
+                .style("font-size", "20px")
+                .style("font-family", "sans-serif")
+                .text("Automatic Root Cause Analysis");
+
+
+
+        // x axis label
+        svg.append("text")
+                .attr("x", (width  - margin.right) )
+                .attr("y", height + margin.bottom)
+                .attr("dx", "-1.9em")
+                .attr("class", "text-label")
+                .attr("text-anchor", "middle")
+                .style("font-size", "10px")
+                .text("Cause");
+
+        //		//y axis label
+        svg.append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", margin.top)
+                .attr("dx", "-3.5em") //big  negative pushes down label
+                .attr("dy", "-6.0em")//big  negative  pushes left wards axis
+                .style("text-anchor", "end")
+                .style("font-size", "10px")
+                .text("Count");
+
+    });
+//});
+
+
+// Get the data
+
+
+
+</script>
+</body>

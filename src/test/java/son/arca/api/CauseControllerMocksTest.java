@@ -194,7 +194,7 @@ public class CauseControllerMocksTest extends AbstractControllerTest {
         Assert.assertNotNull("failure - expected id attribute not null",
                 createdEntity.getId());
         Assert.assertEquals("failure - expected text attribute match",
-                entity.getText(), createdEntity.getText());
+                entity.getName(), createdEntity.getName());
     }
 
     @Test
@@ -202,7 +202,7 @@ public class CauseControllerMocksTest extends AbstractControllerTest {
 
         // Create some test data
         Cause entity = getEntityStubData();
-        entity.setText(entity.getText() + " test");
+        entity.setName(entity.getName() + " test");
         Long id = new Long(1);
 
         // Stub the CauseService.update method return value
@@ -238,7 +238,7 @@ public class CauseControllerMocksTest extends AbstractControllerTest {
         Assert.assertEquals("failure - expected id attribute unchanged",
                 entity.getId(), updatedEntity.getId());
         Assert.assertEquals("failure - expected text attribute match",
-                entity.getText(), updatedEntity.getText());
+                entity.getName(), updatedEntity.getName());
 
     }
 
@@ -277,7 +277,7 @@ public class CauseControllerMocksTest extends AbstractControllerTest {
     private Cause getEntityStubData() {
         Cause entity = new Cause();
         entity.setId(1L);
-        entity.setText("hello");
+        entity.setName("hello");
         return entity;
     }
 

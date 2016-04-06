@@ -120,8 +120,10 @@ public class ArcaServiceBean implements ArcaService {
             throw new NoResultException("Requested entity not found.");
         }
 
-        causeToUpdate.setText(cause.getText());
+        causeToUpdate.setName(cause.getName());
         causeToUpdate.setFrequency(cause.getFrequency());
+        causeToUpdate.setTotal(cause.getTotal());
+        causeToUpdate.setDescription(cause.getDescription());
         Cause updatedCause = arcaServiceRepository.save(causeToUpdate);
 
         logger.info("< update id:{}", cause.getId());

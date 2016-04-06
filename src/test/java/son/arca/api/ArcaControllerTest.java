@@ -93,7 +93,7 @@ public class ArcaControllerTest extends AbstractControllerTest {
 
         String uri = "/api/causes";
         Cause cause = new Cause();
-        cause.setText("test");
+        cause.setName("test");
         String inputJson = super.mapToJson(cause);
 
         MvcResult result = mvc
@@ -117,7 +117,7 @@ public class ArcaControllerTest extends AbstractControllerTest {
         Assert.assertNotNull("failure - expected cause.id not null",
                 createdCause.getId());
         Assert.assertEquals("failure - expected cause.text match", "test",
-                createdCause.getText());
+                createdCause.getName());
 
     }
 
@@ -127,8 +127,8 @@ public class ArcaControllerTest extends AbstractControllerTest {
         String uri = "/api/causes/{id}";
         Long id = new Long(1);
         Cause cause = arcaService.findOne(id);
-        String updatedText = cause.getText() + " test";
-        cause.setText(updatedText);
+        String updatedName = cause.getName() + " test";
+        cause.setName(updatedName);
         String inputJson = super.mapToJson(cause);
 
         MvcResult result = mvc
@@ -152,7 +152,7 @@ public class ArcaControllerTest extends AbstractControllerTest {
         Assert.assertEquals("failure - expected cause.id unchanged",
                 cause.getId(), updatedCause.getId());
         Assert.assertEquals("failure - expected updated cause text match",
-                updatedText, updatedCause.getText());
+                updatedName, updatedCause.getName());
 
     }
 
